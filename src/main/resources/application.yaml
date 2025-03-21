@@ -1,0 +1,40 @@
+spring:
+  application:
+    name:notification-svc
+  serves:
+    port:8081
+
+  thymeleaf:
+    check-template: true
+    check-template-location: true
+    cache: false
+    prefix: file:./src/main/resources/templates/
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/notification-svc?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+  sql:
+    init:
+      mode: never
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  web:
+    resources:
+      static-locations: classpath:/static/, classpath:/custom-folder/
+  #      static-locations=classpath:
+  #        /static/,classpath:/custom-folder/
+  logging:
+    level:
+      org.springframework.security:DEBUG
