@@ -1,8 +1,6 @@
 spring:
   application:
-    name:notification-svc
-  serves:
-    port:8081
+    name: notification-svc
 
   thymeleaf:
     check-template: true
@@ -38,3 +36,6 @@ spring:
   logging:
     level:
       org.springframework.security:DEBUG
+
+server:
+  port: 8081
