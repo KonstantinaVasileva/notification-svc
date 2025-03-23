@@ -16,18 +16,28 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Notification {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     @Column(nullable = false)
     private String title;
+
     @Column(nullable = false)
     private String body;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private NotificationType type;
+
     @Column(nullable = false)
     private UUID recipientId;
+
     @Column(nullable = false)
     private UUID senderId;
+
     private LocalDateTime createAt = LocalDateTime.now();
+
+    @Column(nullable = false)
+    private boolean readed = false;
 
 }
