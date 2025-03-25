@@ -22,7 +22,7 @@ public class Notification {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String body;
 
     @Enumerated(EnumType.STRING)
@@ -32,10 +32,7 @@ public class Notification {
     @Column(nullable = false)
     private UUID recipientId;
 
-    @Column(nullable = false)
-    private UUID senderId;
-
-    private LocalDateTime createAt = LocalDateTime.now();
+    private LocalDateTime createAt;
 
     @Column(nullable = false)
     private boolean readed = false;

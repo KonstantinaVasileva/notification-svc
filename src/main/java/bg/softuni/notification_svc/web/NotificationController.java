@@ -40,4 +40,9 @@ public class NotificationController {
         return ResponseEntity.ok(errorStatusNotification);
     }
 
+    @GetMapping("/all/{id}")
+    public ResponseEntity<List<Notification>> allNotifications(@PathVariable UUID id) {
+        List<Notification> allNotification = notificationService.getAllNotificationByUser(id);
+        return ResponseEntity.ok(allNotification);
+    }
 }

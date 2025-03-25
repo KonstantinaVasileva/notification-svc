@@ -7,6 +7,7 @@ import bg.softuni.notification_svc.web.dto.NotificationRequest;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -26,7 +27,7 @@ public class NotificationService {
                 .body(request.getBody())
                 .type(request.getType())
                 .recipientId(request.getRecipientId())
-                .senderId(request.getSenderId())
+                .createAt(LocalDateTime.now())
                 .build();
 
         notificationRepository.save(notification);
@@ -46,6 +47,10 @@ public class NotificationService {
     }
 
     public List<Notification> getErrorStatusNotification(UUID id) {
-        return notificationRepository.getAllByTypeAndRecipientId(NotificationType.ERROR, id);
+        return notificationRepository.getAllByTypeAndRecipientId(NotificationType.WARNING, id);
+    }
+
+    public List<Notification> getAllNotificationByUser(UUID id) {
+        return notificationRepository.getAllByRecipientId(id);
     }
 }
