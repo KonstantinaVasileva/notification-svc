@@ -4,6 +4,8 @@ import bg.softuni.notification_svc.model.Notification;
 import bg.softuni.notification_svc.model.NotificationType;
 import bg.softuni.notification_svc.repository.NotificationRepository;
 import bg.softuni.notification_svc.web.dto.NotificationRequest;
+import bg.softuni.notification_svc.web.dto.NotificationResponse;
+import bg.softuni.notification_svc.web.mapper.DtoMapper;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -52,5 +54,9 @@ public class NotificationService {
 
     public List<Notification> getAllNotificationByUser(UUID id) {
         return notificationRepository.getAllByRecipientId(id);
+    }
+
+    public Notification getNotification(UUID id) {
+        return notificationRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 }

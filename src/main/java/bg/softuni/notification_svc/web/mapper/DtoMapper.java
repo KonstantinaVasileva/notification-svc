@@ -11,6 +11,7 @@ public class DtoMapper {
         return NotificationResponse.builder()
                 .title(notification.getTitle())
                 .body(notification.getBody())
+                .readed(false)
                 .build();
     }
 }
