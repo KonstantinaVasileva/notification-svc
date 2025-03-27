@@ -28,10 +28,10 @@ public class NotificationController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/read/{id}")
-    public ResponseEntity<Void> readNotification(@PathVariable UUID id) {
-        notificationService.setNotificationAsRead(id);
-        return ResponseEntity.noContent().build();
+    @GetMapping("/read/{id}")
+    public ResponseEntity<Notification> readNotification(@PathVariable UUID id) {
+        Notification notification = notificationService.setNotificationAsRead(id);
+        return ResponseEntity.ok(notification);
     }
 
     @GetMapping("/error-status/{id}")
@@ -47,11 +47,11 @@ public class NotificationController {
         List<NotificationResponse> allNotificationResponseList = allNotification.stream().map(DtoMapper::toNotificationResponse).toList();
         return ResponseEntity.ok(allNotificationResponseList);
     }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Notification> getNotification(@PathVariable UUID id) {
-        Notification notification = notificationService.getNotification(id);
-        DtoMapper.toNotificationResponse(notification);
-        return ResponseEntity.ok(notification);
-    }
+//
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Notification> getNotification(@PathVariable UUID id) {
+//        Notification notification = notificationService.getNotification(id);
+//        DtoMapper.toNotificationResponse(notification);
+//        return ResponseEntity.ok(notification);
+//    }
 }

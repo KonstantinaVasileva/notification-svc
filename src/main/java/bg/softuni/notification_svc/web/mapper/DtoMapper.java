@@ -9,6 +9,7 @@ public class DtoMapper {
 
     public static NotificationResponse toNotificationResponse(Notification notification) {
         return NotificationResponse.builder()
+                .id(notification.getId())
                 .title(notification.getTitle())
                 .body(notification.getBody())
                 .readed(false)

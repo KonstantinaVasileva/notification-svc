@@ -4,9 +4,10 @@ import bg.softuni.notification_svc.model.Notification;
 import bg.softuni.notification_svc.model.NotificationType;
 import bg.softuni.notification_svc.repository.NotificationRepository;
 import bg.softuni.notification_svc.web.dto.NotificationRequest;
-import bg.softuni.notification_svc.web.dto.NotificationResponse;
-import bg.softuni.notification_svc.web.mapper.DtoMapper;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,10 @@ import java.util.UUID;
 
 @Service
 public class NotificationService {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
     private final NotificationRepository notificationRepository;
 
     public NotificationService(NotificationRepository notificationRepository) {
@@ -37,7 +42,8 @@ public class NotificationService {
         return notification;
     }
 
-    public void setNotificationAsRead(UUID id) {
+    @Transactional
+    public Notification setNotificationAsRead(UUID id) {
         Optional<Notification> byId = notificationRepository.findById(id);
         if (byId.isEmpty()) {
             throw new EntityNotFoundException("Notification with id " + id + " not found");
@@ -46,6 +52,10 @@ public class NotificationService {
         Notification notification = byId.get();
         notification.setReaded(true);
         notificationRepository.save(notification);
+
+//        entityManager.refresh(notification);
+
+        return notification;
     }
 
     public List<Notification> getErrorStatusNotification(UUID id) {
@@ -55,8 +65,8 @@ public class NotificationService {
     public List<Notification> getAllNotificationByUser(UUID id) {
         return notificationRepository.getAllByRecipientId(id);
     }
-
-    public Notification getNotification(UUID id) {
-        return notificationRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-    }
+//
+//    public Notification getNotification(UUID id) {
+//        return notificationRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+//    }
 }
