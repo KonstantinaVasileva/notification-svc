@@ -12,7 +12,7 @@ public class DtoMapper {
                 .id(notification.getId())
                 .title(notification.getTitle())
                 .body(notification.getBody())
-                .readed(false)
+                .readed(notification.isReaded())
                 .build();
     }
 }
