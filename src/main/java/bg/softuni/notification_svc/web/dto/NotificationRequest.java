@@ -21,4 +21,5 @@ public class NotificationRequest {
     private NotificationType type;
 
     @NotNull
-    private UUID recipientId;}
+    private UUID recipientId;
+}

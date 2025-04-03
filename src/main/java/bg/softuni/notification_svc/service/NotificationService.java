@@ -46,7 +46,7 @@ public class NotificationService {
     public Notification setNotificationAsRead(UUID id) {
         Optional<Notification> byId = notificationRepository.findById(id);
         if (byId.isEmpty()) {
-                    throw new EntityNotFoundException("Notification with id " + id + " not found");
+            throw new EntityNotFoundException("Notification with id " + id + " not found");
         }
 
         Notification notification = byId.get();
