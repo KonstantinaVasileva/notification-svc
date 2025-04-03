@@ -46,27 +46,22 @@ public class NotificationService {
     public Notification setNotificationAsRead(UUID id) {
         Optional<Notification> byId = notificationRepository.findById(id);
         if (byId.isEmpty()) {
-            throw new EntityNotFoundException("Notification with id " + id + " not found");
+                    throw new EntityNotFoundException("Notification with id " + id + " not found");
         }
 
         Notification notification = byId.get();
         notification.setReaded(true);
         notificationRepository.save(notification);
 
-//        entityManager.refresh(notification);
-
         return notification;
     }
 
-    public List<Notification> getErrorStatusNotification(UUID id) {
+    public List<Notification> getWarningStatusNotification(UUID id) {
         return notificationRepository.getAllByTypeAndRecipientId(NotificationType.WARNING, id);
     }
 
     public List<Notification> getAllNotificationByUser(UUID id) {
         return notificationRepository.getAllByRecipientId(id);
     }
-//
-//    public Notification getNotification(UUID id) {
-//        return notificationRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-//    }
+
 }

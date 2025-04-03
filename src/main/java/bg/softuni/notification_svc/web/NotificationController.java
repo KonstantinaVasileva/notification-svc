@@ -5,6 +5,7 @@ import bg.softuni.notification_svc.service.NotificationService;
 import bg.softuni.notification_svc.web.dto.NotificationRequest;
 import bg.softuni.notification_svc.web.dto.NotificationResponse;
 import bg.softuni.notification_svc.web.mapper.DtoMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,18 +26,22 @@ public class NotificationController {
     public ResponseEntity<NotificationResponse> sendNotification(@RequestBody NotificationRequest request) {
         Notification notification = notificationService.sendNotification(request);
         NotificationResponse response = DtoMapper.toNotificationResponse(notification);
-        return ResponseEntity.ok(response);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
     }
 
     @GetMapping("/read/{id}")
     public ResponseEntity<Notification> readNotification(@PathVariable UUID id) {
         Notification notification = notificationService.setNotificationAsRead(id);
-        return ResponseEntity.ok(notification);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(notification);
     }
 
-    @GetMapping("/error-status/{id}")
+    @GetMapping("/warning-status/{id}")
     public ResponseEntity<List<NotificationResponse>> errorStatus(@PathVariable UUID id) {
-        List<Notification> errorStatusNotification = notificationService.getErrorStatusNotification(id);
+        List<Notification> errorStatusNotification = notificationService.getWarningStatusNotification(id);
         List<NotificationResponse> errorNotificationResponseList = errorStatusNotification.stream().map(DtoMapper::toNotificationResponse).toList();
         return ResponseEntity.ok(errorNotificationResponseList);
     }
@@ -47,11 +52,4 @@ public class NotificationController {
         List<NotificationResponse> allNotificationResponseList = allNotification.stream().map(DtoMapper::toNotificationResponse).toList();
         return ResponseEntity.ok(allNotificationResponseList);
     }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Notification> getNotification(@PathVariable UUID id) {
-//        Notification notification = notificationService.getNotification(id);
-//        DtoMapper.toNotificationResponse(notification);
-//        return ResponseEntity.ok(notification);
-//    }
 }
