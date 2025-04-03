@@ -40,10 +40,10 @@ public class NotificationController {
     }
 
     @GetMapping("/warning-status/{id}")
-    public ResponseEntity<List<NotificationResponse>> errorStatus(@PathVariable UUID id) {
-        List<Notification> errorStatusNotification = notificationService.getWarningStatusNotification(id);
-        List<NotificationResponse> errorNotificationResponseList = errorStatusNotification.stream().map(DtoMapper::toNotificationResponse).toList();
-        return ResponseEntity.ok(errorNotificationResponseList);
+    public ResponseEntity<List<NotificationResponse>> warningStatus(@PathVariable UUID id) {
+        List<Notification> warningStatusNotification = notificationService.getWarningStatusNotification(id);
+        List<NotificationResponse> warningNotificationResponseList = warningStatusNotification.stream().map(DtoMapper::toNotificationResponse).toList();
+        return ResponseEntity.ok(warningNotificationResponseList);
     }
 
     @GetMapping("/all/{id}")
