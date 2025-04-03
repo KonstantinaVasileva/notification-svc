@@ -36,7 +36,6 @@ public class SetNotificationToReadITest {
                 .createAt(LocalDateTime.now())
                 .build();
 
-        System.out.println(notificationRepository.count());
         notificationRepository.save(notification);
 
         Notification returnNotification = notificationService.setNotificationAsRead(notification.getId());
